@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="package com.example.cruddemo.repo.EmployeeMapper" >
+    <resultMap id="employeeResult" type="employee">
+        <id property="id" column="id" />
+        <result property="email" column="email"/>
+        <result property="employeecode" column="employeecode"/>
+        <result property="imageurl" column="imageurl"/>
+        <result property="jobtitle" column="jobtitle"/>
+        <result property="name" column="name"/>
+        <result property="phone" column="phone"/>
+    </resultMap>
+    <select id="selectEmployee" resultType="employee" parameterType="int" resultMap="employeeResult">
+        <!--SELECT id, name, district from village WHERE id = #{id}-->
+        SELECT * FROM tacdb.employee WHERE id = #{id}
+    </select>
+    <insert id="insertEmployee" parameterType="employee"  keyProperty="id" useGeneratedKeys="true">
+        INSERT INTO tacdb.employee(id, email,employeecode,imageurl,jobtitle,
+        name,phone) VALUES (#{id}, #{email}, #{employeecode},#{imageurl},#{jobtitle},#{name},#{phone})
+    </insert>
+    <update id="updateEmployee" parameterType="employee">
+        <!--UPDATE village SET name=#{name}, district =#{district} WHERE id =#{id}-->
+        Update tacdb.employee set email=#{email},employeecode=#{employeecode},imageurl=#{imageurl},
+        jobtitle =#{jobtitle},name=#{name},phone=#{phone} where id=#{id}
+    </update>
+    <delete id="deleteEmployee" parameterType="int">
+        <!--DELETE FROM village WHERE id =#{id}-->
+        DELETE FROM tacdb.employee WHERE id = #{id}
+    </delete>
+</mapper>
